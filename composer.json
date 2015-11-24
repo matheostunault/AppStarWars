@@ -1,0 +1,17 @@
+{
+    "name": "paren/appStarWars",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adam Parent",
+            "email": "parent.adam@free.fr"
+        }
+    ],
+    "require": {},
+    "autoload":{
+    	"classmap":["src"],
+    	"psr-4":{
+    		"":"src/"
+    	}
+    }
+}
