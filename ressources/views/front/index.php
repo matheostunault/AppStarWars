@@ -1,5 +1,4 @@
 <?php ob_start(); ?>
-<h1>HELLO LA PAGE D'ACCUEIL</h1>
 <ul>
 	<?php foreach ($products as $product): ?>
 		<li>

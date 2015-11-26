@@ -3,15 +3,15 @@ namespace Cart;
 class Cart{
 	private $storage = null;
 
-	public function __construc($storage){
+	public function __construct($storage){
 		$this->storage = $storage ;
 	}
 
-	public function buy($product,$quantity){
+	public function buy($product,$quantity,$id){
 
 		$quantity = abs((int) $quantity);
 
-		$this->storage->setValue($product->name, $product->price*$quantity);
+		$this->storage->setValue($product->name, $product->price*$quantity,$id);
 		
 		return $this;
 	}
@@ -27,5 +27,9 @@ class Cart{
 
 	public function reset(){
 		$this->storage->reset();
+	}
+
+	public function all(){
+		return $this->storage->all();
 	}
 }

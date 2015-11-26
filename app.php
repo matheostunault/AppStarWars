@@ -27,7 +27,9 @@ function view($path, $data, $status="200 Ok"){
 	}	
 }
 function url($path='',$param=''){
+	if(!empty($param)) $param = "/$param";
 
+		return "http://localhost:8000/" . $path . $param;
 }
 
 /////////////////////////
@@ -47,25 +49,36 @@ $method = strtolower($_SERVER["REQUEST_METHOD"]);
 //root...//
 ///////////
 
-if ( $method === 'get'){
+if( $method === 'get'){
 	switch($uri){
 		case "/":
 			$frontController = new Controllers\FrontController;
 			$frontController->index();
 			break;
 
-		case preg_match('/\/product\/[a-z]+\/([1-9][0-9]*)/', $uri, $m) == 1:
+		case preg_match('/\/product\/([1-9][0-9]*)/', $uri, $m) == 1:
 			$frontControler = new Controllers\FrontController;
 			$frontControler->show($m[1]);
 			break;
 
-		case '/cart':
-			$frontControler = new Controllers\FrontController;
-			$frontControler->showCart();
+			case "/cart":
+			$frontController = new Controllers\FrontController;
+			$frontController->showCart();
 			break;
+
+
 
 		default :
 			$message = 'Page not found';
 			view('front.404', compact('message'),'404 Not Found');
+	}
+}
+
+if ($method === 'post'){
+	switch($uri){
+		case '/command':
+			$frontControler = new Controllers\FrontController;
+			$frontControler->command();
+			break;
 	}
 }

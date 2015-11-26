@@ -1,21 +1,23 @@
-<?php 
-namespace Cart;
+<?php namespace Cart;
  class SessionStorage{
  	private $sessionName;
 
  	public function __construct($sessionName='product'){
  		session_start();
- 		if(empty($_SESSION[$sessionName])){
+ 		if(!isset($_SESSION[$sessionName])){
  			$_SESSION[$sessionName] = [];
  		}
- 		$this->sessionName = $sessionName
+ 		$this->sessionName = $sessionName;
  	}
 
- 	public function setValue($name, $value){
+ 	public function setValue($name, $value, $id){
  		if(empty($_SESSION[$this->sessionName][$name])){
  			$_SESSION[$this->sessionName][$name] = 0;
  		}
- 			$_SESSION[$this->sessionName][$name] += $value;
+ 			$_SESSION[$this->sessionName][$name] = [ 	
+ 														'value' => $value,
+ 														'id' => $id			
+ 													];
  	}
 
  	public function restore($name){
@@ -31,5 +33,9 @@ namespace Cart;
 
  	public function reset(){
  		$_SESSION[$this->sessionName] = [];
+ 	}
+
+ 	public function all(){
+ 		return $_SESSION[$this->sessionName];
  	}
  }

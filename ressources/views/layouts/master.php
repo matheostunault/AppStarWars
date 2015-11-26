@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Star Wars</title>
+		<link rel="stylesheet" type="text/css" href="<?php echo url('assets/css/styles.css'); ?>">
 	</head>
 	<body>
 	<header>

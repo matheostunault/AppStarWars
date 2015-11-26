@@ -4,6 +4,8 @@ class Product{
 
 	private $name;
 	private $price;
+	private $id;
+
 
 	public function getPrice(){
 		return $this->price;
@@ -11,6 +13,10 @@ class Product{
 
 	public function getName(){
 		return $this->name;
+	}
+
+	public function getId(){
+		return $this->id;
 	}
 
 	public function __construct($name='',$price=0){
@@ -25,6 +31,11 @@ class Product{
 	public function setName($name){
 		if(!is_string($name)) die(sprintf('is not a string value %s', $name));
 		$this->name = $name;
+	}
+
+	public function setId($id){
+		if(!is_numeric($id)) die(sprintf('is not a numeric value %s', $id));
+		$this->id = $id;
 	}
 
 	public function __set($name,$value){

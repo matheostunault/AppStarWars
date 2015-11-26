@@ -35,17 +35,24 @@ class Model{
      * @return $this
      */
     public function where($field, $operator, $value)
-    {
-        $value = is_numeric($value) ? $value : $this->pdo->quote($value);
-
-        if (in_array($operator, $this->operators)) {
-            $this->whereAnd[] = "`$field` $operator $value";
-
-            return $this;
+        {
+     
+            if (!is_numeric($value)) {
+                $value = $this->pdo->quote($value);
+            }
+     
+            $operators = ['=', '>', '<', '!=', '<>', '>=', '<='];
+            if (!in_array($operator, $operators)) {
+                die(sprintf('invalid SQL operator, %s', $operator));
+            }
+            if (sizeof($this->where) == 0) {
+                $this->where [] = $field . $operator . $value;
+                return $this;
+            } else {
+                $this->where [] = "AND " . $field . $operator . $value;
+                return $this;
+            }
         }
-
-        die(sprintf('unsupported operator %s', $operator));
-    }
 
     public function count()
     {
@@ -106,4 +113,14 @@ class Model{
     	return $stmt->fetchAll();
     }
 
+    public function find($table , $id){
+
+        $sql =sprintf("SELECT * FROM %s WHERE `id` = %d ",
+            $table,
+            $id);
+
+        $stmt = $this->pdo->query($sql);
+        
+        return $stmt->fetchAll();
+    }
 }
